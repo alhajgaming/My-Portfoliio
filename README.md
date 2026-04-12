@@ -218,3 +218,4 @@ This portfolio is designed to:
 3. Update LinkedIn and GitHub links in `index.html` (search for `linkedin.com` and `github.com`).
 4. Keep adding projects regularly — a portfolio that doesn't evolve is just decoration.
 5. Change `ADMIN_PASSWORD` in `script.js` before deploying publicly.
+Disclaimer: it's all ai
