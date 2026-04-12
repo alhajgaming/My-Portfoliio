@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Alhajkhan Pathan — Data Analyst Portfolio. Python, Power BI, Excel. BCA Silver Oak University 2026." />
+  <meta name="author" content="Alhajkhan Pathan" />
+  <title>Alhajkhan Pathan — Data Analyst</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════
+     LOADING SCREEN
+══════════════════════════════════════════════════ -->
+<div id="loader" class="loader">
+  <div class="loader-grid"></div>
+  <div class="loader-scan-line" id="scanLine"></div>
+
+  <div class="loader-content">
+    <div class="loader-logo-block">
+      <div class="loader-logo">AK<span>.</span></div>
+      <div class="loader-logo-tag">ALHAJKHAN PATHAN · DATA ANALYST</div>
+    </div>
+
+    <div class="loader-quote-block">
+      <p class="loader-quote" id="loaderQuote"></p>
+      <p class="loader-quote-by" id="loaderQuoteBy"></p>
+    </div>
+
+    <div class="loader-bar-wrap">
+      <div class="loader-bar-fill" id="loaderBar"></div>
+    </div>
+
+    <div class="loader-meta">
+      <span class="loader-status" id="loaderStatus">Initializing...</span>
+      <span class="loader-pct" id="loaderPct">0%</span>
+    </div>
+  </div>
+
+  <div class="loader-hud loader-hud-tl">DATA_ANALYST.EXE · v3.0</div>
+  <div class="loader-hud loader-hud-tr" id="loaderTime"></div>
+  <div class="loader-hud loader-hud-bl">SILVER OAK UNIVERSITY · BCA · 2026</div>
+  <div class="loader-hud loader-hud-br">AHMEDABAD · INDIA</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     ADMIN PANEL OVERLAY
+══════════════════════════════════════════════════ -->
+<div id="adminOverlay" class="overlay hidden">
+  <div class="overlay-panel glass" id="adminPanel">
+    <div class="overlay-hd">
+      <div class="overlay-title">🔐 Admin Access</div>
+      <button class="icon-btn" id="closeAdmin">✕</button>
+    </div>
+    <!-- Login view -->
+    <div id="adminLoginView">
+      <p class="overlay-hint">Enter your password to unlock admin mode.</p>
+      <p class="overlay-hint" style="color:var(--text3);font-size:0.76rem;margin-top:-8px">
+        Shortcut: <kbd>Ctrl+Shift+A</kbd> or click logo 5×
+      </p>
+      <input type="password" id="adminPwdInput" class="f-input" placeholder="Password" />
+      <button class="btn btn-primary" id="adminLoginBtn" style="width:100%;margin-top:12px">Unlock →</button>
+      <p class="admin-err hidden" id="adminErr">❌ Incorrect password. Try again.</p>
+    </div>
+    <!-- Dashboard view (shown when logged in) -->
+    <div id="adminDashView" class="hidden">
+      <div class="admin-ok">✅ Admin mode is <strong>active</strong></div>
+      <p class="overlay-hint">Hover any project card to reveal Edit &amp; Delete controls.</p>
+      <div class="admin-btns">
+        <button class="btn btn-primary" id="openAddProject">＋ Add New Project</button>
+        <button class="btn btn-outline" id="adminLogoutBtn">Log Out</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ADD / EDIT PROJECT MODAL -->
+<div id="projectOverlay" class="overlay hidden">
+  <div class="overlay-panel glass" style="max-width:580px">
+    <div class="overlay-hd">
+      <div class="overlay-title" id="projectModalTitle">Add Project</div>
+      <button class="icon-btn" id="closeProjectModal">✕</button>
+    </div>
+    <input type="hidden" id="editIdx" value="-1" />
+
+    <div class="form-row-2">
+      <div class="f-group">
+        <label class="f-label">Title *</label>
+        <input id="fTitle" class="f-input" placeholder="Sales Dashboard" />
+      </div>
+      <div class="f-group">
+        <label class="f-label">Category</label>
+        <select id="fCat" class="f-select">
+          <option value="Python">Python</option>
+          <option value="Power BI">Power BI</option>
+          <option value="Excel">Excel</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="f-group">
+      <label class="f-label">Description *</label>
+      <textarea id="fDesc" class="f-textarea" placeholder="What did you build? What insight did it produce?"></textarea>
+    </div>
+
+    <div class="f-group">
+      <label class="f-label">Key Insight (shown on hover)</label>
+      <input id="fInsight" class="f-input" placeholder="e.g. Identified 18% revenue gap in 3 regions" />
+    </div>
+
+    <div class="form-row-2">
+      <div class="f-group">
+        <label class="f-label">Tools (comma separated) *</label>
+        <input id="fTools" class="f-input" placeholder="Python, Pandas, Seaborn" />
+      </div>
+      <div class="f-group">
+        <label class="f-label">Accent Color</label>
+        <input id="fColor" class="f-input" placeholder="#00e5ff" value="#00e5ff" />
+      </div>
+    </div>
+
+    <div class="form-row-2">
+      <div class="f-group">
+        <label class="f-label">Icon Emoji</label>
+        <input id="fIcon" class="f-input" placeholder="📊" value="📊" />
+      </div>
+      <div class="f-group">
+        <label class="f-label">GitHub URL (optional)</label>
+        <input id="fGithub" class="f-input" placeholder="https://github.com/..." />
+      </div>
+    </div>
+
+    <div class="f-group">
+      <label class="f-label">Image Path (optional)</label>
+      <input id="fImage" class="f-input" placeholder="assets/project1.jpg" />
+      <p style="font-size:0.73rem;color:var(--text3);margin-top:5px">
+        Place image in <code>/assets/</code> folder and enter filename here.
+      </p>
+    </div>
+
+    <div class="overlay-ft">
+      <button class="btn btn-primary" id="saveProjectBtn">Save Project</button>
+      <button class="btn btn-outline" id="cancelProjectBtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRM -->
+<div id="deleteOverlay" class="overlay hidden">
+  <div class="overlay-panel glass" style="max-width:360px;text-align:center;padding:40px 32px">
+    <div style="font-size:3rem;margin-bottom:14px">🗑️</div>
+    <h3 style="font-family:var(--font-head);font-size:1.6rem;letter-spacing:1px;margin-bottom:10px">Delete Project?</h3>
+    <p style="color:var(--text2);font-size:0.88rem;margin-bottom:28px">This cannot be undone. The project will be permanently removed.</p>
+    <div style="display:flex;gap:12px;justify-content:center">
+      <button class="btn btn-outline" id="confirmDeleteBtn" style="border-color:#ff4b4b;color:#ff4b4b">Yes, Delete</button>
+      <button class="btn btn-primary" id="cancelDeleteBtn">Keep It</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="nav-inner">
+
+    <button class="nav-logo" id="navLogo" aria-label="Home">AK<span>.</span></button>
+
+    <ul class="nav-links">
+      <li><a href="#about"      class="nav-a">About</a></li>
+      <li><a href="#skills"     class="nav-a">Skills</a></li>
+      <li><a href="#projects"   class="nav-a">Projects</a></li>
+      <li><a href="#experience" class="nav-a">Experience</a></li>
+      <li><a href="#dashboard"  class="nav-a">Dashboard</a></li>
+      <li><a href="#contact"    class="nav-a">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <span class="admin-badge hidden" id="adminBadge" title="Admin mode active — click to manage">🔐 Admin</span>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme"><span id="themeIcon">☀️</span></button>
+      <a href="#contact" class="btn btn-primary nav-hire">Hire Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#about"      class="mob-a">About</a>
+    <a href="#skills"     class="mob-a">Skills</a>
+    <a href="#projects"   class="mob-a">Projects</a>
+    <a href="#experience" class="mob-a">Experience</a>
+    <a href="#dashboard"  class="mob-a">Dashboard</a>
+    <a href="#contact"    class="mob-a">Contact</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-orb"></div>
+
+  <div class="container">
+    <div class="hero-layout">
+
+      <!-- Text -->
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Open to Work in Data Analytics
+        </div>
+
+        <h1 class="hero-h1">
+          Turning<br>
+          <span class="c-accent">Data</span><br>
+          <span class="c-dim">into Insights</span>
+        </h1>
+
+        <div class="hero-type">
+          <span class="c-dim2">I specialize in </span>
+          <span id="typeTarget" class="c-accent fw-600"></span>
+          <span class="type-cur">|</span>
+        </div>
+
+        <div class="hero-tags">
+          <span class="htag">📊 Power BI</span>
+          <span class="htag">🐍 Python</span>
+          <span class="htag">📗 Excel</span>
+          <span class="htag">🔍 EDA</span>
+          <span class="htag">📈 Dashboards</span>
+        </div>
+
+        <p class="hero-bio">
+          I'm <strong>Alhajkhan Pathan</strong>, a BCA student at Silver Oak University, Ahmedabad,
+          graduating <strong>June 2026</strong>. I completed a
+          <strong>Data Analytics Internship in December 2025</strong> and I turn raw datasets into
+          decisions that matter.
+        </p>
+
+        <div class="hero-ctas">
+          <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+          <a href="assets/resume.pdf" target="_blank" rel="noopener" class="btn btn-outline">Resume ↗</a>
+        </div>
+
+        <div class="hero-counters">
+          <div class="hcount">
+            <span class="hcount-num" data-target="6">0</span><span class="hcount-plus">+</span>
+            <div class="hcount-lbl">Projects</div>
+          </div>
+          <div class="hcount-sep"></div>
+          <div class="hcount">
+            <span class="hcount-num" data-target="3">0</span><span class="hcount-plus">+</span>
+            <div class="hcount-lbl">Tools</div>
+          </div>
+          <div class="hcount-sep"></div>
+          <div class="hcount">
+            <span class="hcount-num" data-target="1">0</span>
+            <div class="hcount-lbl">Internship</div>
+          </div>
+          <div class="hcount-sep"></div>
+          <div class="hcount">
+            <span class="hcount-num">Jun</span>
+            <div class="hcount-lbl">2026 Grad</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual / Profile -->
+      <div class="hero-visual">
+        <div class="avatar-shell">
+          <!-- Outer ring -->
+          <div class="avatar-ring">
+            <span class="av-orb av-orb-1"></span>
+            <span class="av-orb av-orb-2"></span>
+            <span class="av-orb av-orb-3"></span>
+            <!-- Profile picture or initials -->
+            <div class="avatar-core" id="avatarCore">
+              <img src="assets/profile.jpeg" alt="Alhajkhan Pathan" class="avatar-img" id="avatarImg"
+                   onerror="this.style.display='none';document.getElementById('avatarInitials').style.display='flex'" />
+              <div class="avatar-initials" id="avatarInitials">AP</div>
+            </div>
+          </div>
+          <!-- Floating pills -->
+          <div class="fpill fpill-1">📊 Power BI</div>
+          <div class="fpill fpill-2">🐍 Python</div>
+          <div class="fpill fpill-3">📗 Excel</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-mouse"><div class="scroll-dot"></div></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- Marquee -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>Data Analytics</span><b>✦</b><span>Power BI</span><b>✦</b>
+    <span>Python</span><b>✦</b><span>Excel</span><b>✦</b>
+    <span>Pandas</span><b>✦</b><span>Data Cleaning</span><b>✦</b>
+    <span>Visualization</span><b>✦</b><span>EDA</span><b>✦</b>
+    <span>Dashboards</span><b>✦</b><span>Matplotlib</span><b>✦</b>
+    <span>Seaborn</span><b>✦</b><span>SQL</span><b>✦</b>
+    <span>Data Analytics</span><b>✦</b><span>Power BI</span><b>✦</b>
+    <span>Python</span><b>✦</b><span>Excel</span><b>✦</b>
+    <span>Pandas</span><b>✦</b><span>Data Cleaning</span><b>✦</b>
+    <span>Visualization</span><b>✦</b><span>EDA</span><b>✦</b>
+    <span>Dashboards</span><b>✦</b><span>Matplotlib</span><b>✦</b>
+    <span>Seaborn</span><b>✦</b><span>SQL</span><b>✦</b>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     ABOUT
+══════════════════════════════════════════════════ -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="sec-hd">
+      <span class="sec-label reveal">About Me</span>
+      <h2 class="sec-title reveal">Who I Am</h2>
+      <div class="sec-line reveal"></div>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="glass about-card reveal">
+        <div class="about-pic-wrap">
+          <div class="about-pic" id="aboutPic">
+            <img src="assets/profile.jpg" alt="Alhajkhan Pathan" class="about-pic-img"
+                 onerror="this.style.display='none';document.getElementById('aboutInitials').style.display='flex'" />
+            <div class="about-pic-initials" id="aboutInitials">AP</div>
+          </div>
+          <div class="about-name">Alhajkhan Pathan</div>
+          <div class="about-role">Aspiring Data Analyst</div>
+        </div>
+
+        <div class="info-rows">
+          <div class="irow">
+            <span class="irow-ico">🎓</span>
+            <div>
+              <div class="irow-key">Education</div>
+              <div class="irow-val">BCA — Silver Oak University</div>
+              <div class="irow-sub">Graduating June 2026 (Final Semester)</div>
+            </div>
+          </div>
+          <div class="irow">
+            <span class="irow-ico">🏢</span>
+            <div>
+              <div class="irow-key">Internship</div>
+              <div class="irow-val">Data Analytics Intern</div>
+              <div class="irow-sub">December 2025 · 1 Month</div>
+            </div>
+          </div>
+          <div class="irow">
+            <span class="irow-ico">💼</span>
+            <div>
+              <div class="irow-key">Current Role</div>
+              <div class="irow-val">RCM Advisor</div>
+              <div class="irow-sub">Clinical Excel Computech, Ahmedabad</div>
+            </div>
+          </div>
+          <div class="irow">
+            <span class="irow-ico">📍</span>
+            <div>
+              <div class="irow-key">Location</div>
+              <div class="irow-val">Ahmedabad, Gujarat, India</div>
+            </div>
+          </div>
+          <div class="irow">
+            <span class="irow-ico">🟢</span>
+            <div>
+              <div class="irow-key">Status</div>
+              <div class="irow-val" style="color:#00e676">Open to Work in Data Analytics</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="soft-wrap">
+          <div class="irow-key" style="margin-bottom:10px">Soft Skills</div>
+          <div class="soft-pills">
+            <span>Communication</span><span>Teamwork</span>
+            <span>Problem Solving</span><span>Organization</span>
+            <span>Detail-Oriented</span><span>Adaptability</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-right reveal r-d2">
+        <div class="about-paras">
+          <p>I'm <span class="hl">Alhajkhan Pathan</span>, an aspiring data analyst completing a
+          <span class="hl">Bachelor of Computer Applications (BCA)</span> at Silver Oak University,
+          Ahmedabad — with my final semester ending in <span class="hl">June 2026</span>.</p>
+
+          <p>My passion is the complete data lifecycle: raw messy data → clean datasets → compelling
+          dashboards that actually drive decisions. I believe
+          <span class="hl">data is only as powerful as the story it tells.</span></p>
+
+          <p>In <span class="hl">December 2025</span>, I completed a one-month
+          <span class="hl">Data Analytics Internship</span> where I performed EDA on real-world datasets,
+          built interactive Power BI dashboards, and delivered weekly insight reports using Python and Excel.</p>
+
+          <p>I also work as an <span class="hl">RCM Advisor</span> at Clinical Excel Computech —
+          applying analytical thinking to operations, data entry, and client communication every day,
+          which has made me faster, more organized, and more data-driven than most freshers.</p>
+        </div>
+
+        <div class="achip-row">
+          <div class="achip"><span>🏆</span>Data Analytics Intern — Dec 2025</div>
+          <div class="achip"><span>🎓</span>BCA Graduating June 2026</div>
+          <div class="achip"><span>📊</span>6+ Analytics Projects</div>
+          <div class="achip"><span>📈</span>Power BI Dashboards</div>
+        </div>
+
+        <div class="about-btns">
+          <a href="#projects" class="btn btn-primary">See My Projects</a>
+          <a href="#contact"  class="btn btn-outline">Get In Touch</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     SKILLS
+══════════════════════════════════════════════════ -->
+<section id="skills" class="section sec-alt">
+  <div class="container">
+    <div class="sec-hd">
+      <span class="sec-label reveal">What I Know</span>
+      <h2 class="sec-title reveal">Skills &amp; Tools</h2>
+      <div class="sec-line reveal"></div>
+      <p class="sec-sub reveal">Tools and techniques I use to collect, clean, analyze, and visualize data.</p>
+    </div>
+
+    <div class="skills-grid">
+
+      <div class="glass skill-card reveal r-d1">
+        <div class="skc-ico">📊</div>
+        <div class="skc-title">Data Tools</div>
+        <div class="skb"><div class="skb-row"><span>Microsoft Excel</span><span class="skb-pct">90%</span></div><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Power BI</span><span class="skb-pct">80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Python (Pandas, Matplotlib)</span><span class="skb-pct">75%</span></div><div class="bar-track"><div class="bar-fill" data-w="75"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>SQL Basics</span><span class="skb-pct">62%</span></div><div class="bar-track"><div class="bar-fill" data-w="62"></div></div></div>
+      </div>
+
+      <div class="glass skill-card reveal r-d2">
+        <div class="skc-ico">🔬</div>
+        <div class="skc-title">Technical</div>
+        <div class="skb"><div class="skb-row"><span>Data Cleaning &amp; Wrangling</span><span class="skb-pct">85%</span></div><div class="bar-track"><div class="bar-fill" data-w="85"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Data Visualization</span><span class="skb-pct">82%</span></div><div class="bar-track"><div class="bar-fill" data-w="82"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Exploratory Data Analysis</span><span class="skb-pct">78%</span></div><div class="bar-track"><div class="bar-fill" data-w="78"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Dashboard Design</span><span class="skb-pct">76%</span></div><div class="bar-track"><div class="bar-fill" data-w="76"></div></div></div>
+      </div>
+
+      <div class="glass skill-card reveal r-d3">
+        <div class="skc-ico">🤝</div>
+        <div class="skc-title">Soft Skills</div>
+        <div class="skb"><div class="skb-row"><span>Communication</span><span class="skb-pct">88%</span></div><div class="bar-track"><div class="bar-fill" data-w="88"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Teamwork</span><span class="skb-pct">90%</span></div><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Time Management</span><span class="skb-pct">80%</span></div><div class="bar-track"><div class="bar-fill" data-w="80"></div></div></div>
+        <div class="skb"><div class="skb-row"><span>Problem Solving</span><span class="skb-pct">84%</span></div><div class="bar-track"><div class="bar-fill" data-w="84"></div></div></div>
+      </div>
+
+    </div>
+
+    <div class="tech-cloud reveal">
+      <p class="tc-lbl">Technologies I've Worked With</p>
+      <div id="techCloud" class="tc-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     PROJECTS
+══════════════════════════════════════════════════ -->
+<section id="projects" class="section">
+  <div class="project-atm" id="projectAtm"></div>
+
+  <div class="container" style="position:relative;z-index:2">
+    <div class="sec-hd">
+      <span class="sec-label reveal">My Work</span>
+      <h2 class="sec-title reveal">Projects</h2>
+      <div class="sec-line reveal"></div>
+      <p class="sec-sub reveal">
+        Hover a card to explore details. Filter by tool below.
+        <span class="admin-only hidden" id="projectsAdminHint"> Admin: hover cards to Edit/Delete.</span>
+      </p>
+    </div>
+
+    <div class="filter-bar reveal" id="filterBar">
+      <button class="fbtn active" data-f="all">All</button>
+      <button class="fbtn" data-f="Excel">📗 Excel</button>
+      <button class="fbtn" data-f="Power BI">📊 Power BI</button>
+      <button class="fbtn" data-f="Python">🐍 Python</button>
+    </div>
+
+    <div class="proj-grid" id="projGrid">
+      <!-- Rendered by script.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     EXPERIENCE
+══════════════════════════════════════════════════ -->
+<section id="experience" class="section sec-alt">
+  <div class="container">
+    <div class="sec-hd">
+      <span class="sec-label reveal">Work History</span>
+      <h2 class="sec-title reveal">Experience</h2>
+      <div class="sec-line reveal"></div>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-date">December 2025 · 1 Month</div>
+          <div class="tl-role">Data Analytics Intern</div>
+          <div class="tl-co">Data Analytics Firm · Ahmedabad, India</div>
+          <div class="glass tl-card">
+            <div class="tl-tags"><span>Python</span><span>Power BI</span><span>Excel</span><span>EDA</span></div>
+            <ul class="tl-list">
+              <li>Performed EDA on real-world business datasets using Python (Pandas, NumPy) to uncover trends.</li>
+              <li>Built interactive Power BI dashboards to communicate KPIs to non-technical stakeholders.</li>
+              <li>Cleaned and pre-processed messy datasets — handled nulls, duplicates, and inconsistent formats.</li>
+              <li>Prepared Excel summary reports to support business decision-making and weekly reviews.</li>
+              <li>Collaborated with the team to deliver actionable insight reports on time every week.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal r-d2">
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <div class="tl-date">2023 — Present</div>
+          <div class="tl-role">RCM Advisor</div>
+          <div class="tl-co">Clinical Excel Computech · Ahmedabad, India</div>
+          <div class="glass tl-card">
+            <div class="tl-tags"><span>Excel</span><span>Data Entry</span><span>Reporting</span></div>
+            <ul class="tl-list">
+              <li>Streamlined data entry and record management, reducing processing time significantly.</li>
+              <li>Used Excel to track billing data, claims, and generate accurate operational reports.</li>
+              <li>Identified recurring data discrepancies and proposed systematic fixes.</li>
+              <li>Managed client communication and cross-department coordination for billing queries.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal r-d3">
+        <div class="tl-dot tl-dot-y"></div>
+        <div class="tl-body">
+          <div class="tl-date">2022 — June 2026</div>
+          <div class="tl-role">Bachelor of Computer Applications (BCA)</div>
+          <div class="tl-co">Silver Oak University · College of Computer Applications, Ahmedabad</div>
+          <div class="glass tl-card">
+            <ul class="tl-list">
+              <li>Studying core CS subjects: programming, databases, networking, and software development.</li>
+              <li>Independently built data analytics projects using Python, Power BI, and Excel.</li>
+              <li>Completed Statistics, DBMS, and Python Programming — all directly applicable to data roles.</li>
+              <li>Applied academic knowledge in a real internship environment in December 2025.</li>
+              <li><strong>Final semester ends June 2026</strong> — actively seeking full-time data analyst roles.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     DASHBOARD
+══════════════════════════════════════════════════ -->
+<section id="dashboard" class="section">
+  <div class="container">
+    <div class="sec-hd">
+      <span class="sec-label reveal">Live Preview</span>
+      <h2 class="sec-title reveal">Data Dashboard</h2>
+      <div class="sec-line reveal"></div>
+      <p class="sec-sub reveal">A Power BI–style analytics dashboard showcasing my visualization skills.</p>
+    </div>
+
+    <div class="kpi-row reveal">
+      <div class="glass kpi-card"><div class="kpi-num" data-target="94">0</div><div class="kpi-unit">%</div><div class="kpi-lbl">Data Accuracy</div><div class="kpi-chg">↑ 4.2%</div></div>
+      <div class="glass kpi-card"><div class="kpi-num" data-target="3800">0</div><div class="kpi-unit">+</div><div class="kpi-lbl">Rows Processed</div><div class="kpi-chg">↑ 12%</div></div>
+      <div class="glass kpi-card"><div class="kpi-num" data-target="12">0</div><div class="kpi-unit"></div><div class="kpi-lbl">Reports Built</div><div class="kpi-chg">↑ Growing</div></div>
+      <div class="glass kpi-card"><div class="kpi-num" data-target="7">0</div><div class="kpi-unit"></div><div class="kpi-lbl">Datasets Cleaned</div><div class="kpi-chg">↑ This month</div></div>
+    </div>
+
+    <div class="charts-grid reveal">
+      <div class="glass chart-card"><div class="chart-hd"><span class="chart-lbl">Monthly Data Processed</span><span class="chart-tag">2025</span></div><div class="chart-wrap"><canvas id="cLine"></canvas></div></div>
+      <div class="glass chart-card"><div class="chart-hd"><span class="chart-lbl">Tool Proficiency</span><span class="chart-tag">Skills</span></div><div class="chart-wrap"><canvas id="cBar"></canvas></div></div>
+      <div class="glass chart-card"><div class="chart-hd"><span class="chart-lbl">Project Split</span><span class="chart-tag">By Category</span></div><div class="chart-wrap"><canvas id="cDonut"></canvas></div></div>
+      <div class="glass chart-card"><div class="chart-hd"><span class="chart-lbl">Skill Radar</span><span class="chart-tag">Self Assessment</span></div><div class="chart-wrap"><canvas id="cRadar"></canvas></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     CONTACT
+══════════════════════════════════════════════════ -->
+<section id="contact" class="section sec-alt">
+  <div class="container">
+    <div class="sec-hd">
+      <span class="sec-label reveal">Get In Touch</span>
+      <h2 class="sec-title reveal">Contact Me</h2>
+      <div class="sec-line reveal"></div>
+      <p class="sec-sub reveal">Open to internships, full-time analyst roles, and data collaborations.</p>
+    </div>
+
+    <div class="contact-grid">
+
+      <div class="contact-left reveal">
+        <div class="glass cinfo"><div class="cinfo-ico">📱</div><div><div class="cinfo-lbl">Phone</div><div class="cinfo-val">+91 XXXXX XXXXX</div></div></div>
+        <div class="glass cinfo"><div class="cinfo-ico">📧</div><div><div class="cinfo-lbl">Email</div><div class="cinfo-val">alhajkhan@example.com</div></div></div>
+        <div class="glass cinfo"><div class="cinfo-ico">📍</div><div><div class="cinfo-lbl">Location</div><div class="cinfo-val">Ahmedabad, Gujarat, India</div></div></div>
+        <div class="glass cinfo"><div class="cinfo-ico">🎓</div><div><div class="cinfo-lbl">University</div><div class="cinfo-val">Silver Oak University · Jun 2026</div></div></div>
+        <div class="social-row">
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="soc-btn" title="LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener" class="soc-btn" title="GitHub">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          </a>
+          <a href="mailto:alhajkhan@example.com" class="soc-btn" title="Email">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="glass contact-form reveal r-d2">
+        <h3 class="cf-title">Send a Message</h3>
+        <div id="contactForm">
+          <div class="form-row-2">
+            <div class="f-group"><label class="f-label">Name</label><input id="cName" class="f-input" placeholder="Your Name" /></div>
+            <div class="f-group"><label class="f-label">Email</label><input id="cEmail" class="f-input" type="email" placeholder="you@email.com" /></div>
+          </div>
+          <div class="f-group"><label class="f-label">Subject</label><input id="cSubject" class="f-input" placeholder="Data Analytics Opportunity" /></div>
+          <div class="f-group"><label class="f-label">Message</label><textarea id="cMessage" class="f-textarea" rows="5" placeholder="Tell me about the role or project..."></textarea></div>
+          <button class="btn btn-primary" id="contactSendBtn" style="width:100%">Send Message →</button>
+        </div>
+        <div class="form-ok hidden" id="formOk">
+          <div style="font-size:3rem;margin-bottom:12px">✅</div>
+          <div style="color:#00e676;font-weight:600">Message sent! I'll get back to you soon.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">AK<span>.</span></div>
+      <p class="footer-copy">© 2025 Alhajkhan Pathan. All rights reserved.</p>
+    </div>
+    <div class="footer-mid">Built with <span style="color:#ff4b4b">♥</span> · HTML · CSS · JavaScript</div>
+    <div class="footer-socials">
+      <a href="https://linkedin.com" target="_blank" rel="noopener" class="soc-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://github.com" target="_blank" rel="noopener" class="soc-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<button class="back-top hidden" id="backTop" aria-label="Back to top">↑</button>
+
+<script src="script.js"></script>
+</body>
+</html>
