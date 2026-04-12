@@ -1,6 +1,7 @@
 # 📊 Pathan Alhajkhan — Portfolio (Final Edition)
 
 A modern, minimal, and interactive personal portfolio for a data analytics student.
+project live here: https://alhajgaming.github.io/Portfoliio/
 
 ---
 
