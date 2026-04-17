@@ -146,7 +146,7 @@ const DEFAULT_PROJECTS = [
 ═══════════════════════════════════════════════════════════ */
 
 // ── Change this password to protect your admin mode ──
-const ADMIN_PASSWORD = "analyst2026";
+const ADMIN_PASSWORD = "ALHAJ123rr@@";
 
 const TYPE_WORDS = [
   "Data Analytics", "Power BI Dashboards", "Python & Pandas",
