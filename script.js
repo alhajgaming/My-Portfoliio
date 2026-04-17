@@ -769,7 +769,7 @@ document.getElementById("contactSendBtn")?.addEventListener("click", () => {
 
   const body = `Hello Alhajkhan,\n\nMy name is ${name} (${email}).\n\n${message}`;
   window.location.href =
-    `mailto:alhajkhan@example.com` +
+    `mailto:alhajgamingofficial@gmail.com` +
     `?subject=${encodeURIComponent(subject || "Portfolio Inquiry — " + name)}` +
     `&body=${encodeURIComponent(body)}`;
 
