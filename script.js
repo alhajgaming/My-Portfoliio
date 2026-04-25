@@ -86,7 +86,7 @@ const DEFAULT_PROJECTS = [
     icon:     "🏥",
     color:    "#f43f5e",
     github:   "",
-    image:    ""
+    image:    "/assets/image.png"
   }
 ];
 
