@@ -110,7 +110,7 @@ const TECH_STACK = [
 ];
 
 const LOADER_STEPS = [
-  "Waiting for My love..."
+  "Waiting for My love...",
   "Initializing system...",
   "Loading modules...",
   "Importing datasets...",
