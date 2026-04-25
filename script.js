@@ -72,66 +72,15 @@ const QUOTES = [
      github   string  — URL or "" for none
      image    string  — Path to image or "" for none
 ═══════════════════════════════════════════════════════════ */
+/**
+ * Projects will be added here like this make sure to make them like this
+ */
 const DEFAULT_PROJECTS = [
+  
   {
-    title:    "Sales Performance Dashboard",
-    desc:     "Interactive Power BI dashboard tracking monthly sales KPIs, regional breakdown, and YoY growth across product lines.",
-    insight:  "Identified top 3 underperforming regions responsible for 18% revenue gap.",
-    tools:    ["Power BI", "Excel", "DAX"],
-    category: "Power BI",
-    icon:     "📊",
-    color:    "#00e5ff",
-    github:   "",
-    image:    ""
-  },
-  {
-    title:    "HR Attrition Analysis",
-    desc:     "Python EDA on IBM HR dataset (1,470 rows). Found key attrition drivers across department, salary, and age groups.",
-    insight:  "Department + salary band together explained 67% of attrition variance.",
-    tools:    ["Python", "Pandas", "Seaborn", "Matplotlib"],
-    category: "Python",
-    icon:     "🔬",
-    color:    "#a78bfa",
-    github:   "",
-    image:    ""
-  },
-  {
-    title:    "Monthly Expense Tracker",
-    desc:     "Excel workbook with dynamic charts, pivot tables, and conditional formatting for personal monthly finance management.",
-    insight:  "Revealed 34% of monthly spending concentrated in just 2 unnecessary categories.",
-    tools:    ["Excel", "Pivot Tables", "Charts"],
-    category: "Excel",
-    icon:     "📗",
-    color:    "#34d399",
-    github:   "",
-    image:    ""
-  },
-  {
-    title:    "Student Grade Analytics",
-    desc:     "Python analysis of student performance dataset. Visualized grade distributions, pass/fail ratios, and subject-wise trends.",
-    insight:  "Math scores dropped 22% mid-semester, correlated with assignment load spike.",
-    tools:    ["Python", "NumPy", "Matplotlib"],
-    category: "Python",
-    icon:     "🎓",
-    color:    "#f59e0b",
-    github:   "",
-    image:    ""
-  },
-  {
-    title:    "E-Commerce Revenue Report",
-    desc:     "Power BI drill-through report for product, region, and customer segment analysis on a 10,000-row simulated dataset.",
-    insight:  "Electronics had highest AOV but lowest repeat purchase rate — major retention opportunity.",
-    tools:    ["Power BI", "DAX"],
-    category: "Power BI",
-    icon:     "🛒",
-    color:    "#fb923c",
-    github:   "",
-    image:    ""
-  },
-  {
-    title:    "RCM Billing Audit Tool",
-    desc:     "Excel-based audit workbook to detect billing discrepancies in medical records using advanced formulas and conditional formatting.",
-    insight:  "Flagged 12% of records with pricing errors, preventing ₹40K+ in quarterly losses.",
+    title:    "Demo Project title",
+    desc:     "Description for demo local and real project.",
+    insight:  "You're good enough, maybe insight i've put here",
     tools:    ["Excel", "Advanced Formulas"],
     category: "Excel",
     icon:     "🏥",
@@ -161,6 +110,7 @@ const TECH_STACK = [
 ];
 
 const LOADER_STEPS = [
+  "Waiting for My love..."
   "Initializing system...",
   "Loading modules...",
   "Importing datasets...",
