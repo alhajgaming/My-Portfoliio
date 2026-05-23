@@ -87,6 +87,17 @@ const DEFAULT_PROJECTS = [
     color:    "#f43f5e",
     github:   "",
     image:    "/assets/image.png"
+  },
+  {
+    title:    "Coders Of Banglore",
+    desc:     "Analyzed social media DataSet with Pure Python",
+    insight:  "Found maximum followers, Followings, and posts from our ",
+    tools:    ["Python", "JSON Module"],
+    category: "Python",
+    icon:     "/assets/python.png",
+    color:    "#f43f5e",
+    github:   "",
+    image:    "/assets/Coder Of Banglore.png"
   }
 ];
 
