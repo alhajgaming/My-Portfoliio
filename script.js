@@ -96,7 +96,7 @@ const DEFAULT_PROJECTS = [
     category: "Python",
     icon:     "/assets/python.png",
     color:    "#f43f5e",
-    github:   "",
+    github:   "https://github.com/alhajgaming/epic-dataScience",
     image:    "/assets/Coder Of Banglore.png"
   }
 ];
