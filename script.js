@@ -77,27 +77,38 @@ const QUOTES = [
  */
 const DEFAULT_PROJECTS = [
   
+  // {
+  //   title:    "Demo Project title",
+  //   desc:     "Description for demo local and real project.",
+  //   insight:  "You're good enough, maybe insight i've put here",
+  //   tools:    ["Excel", "Advanced Formulas"],
+  //   category: "Excel",
+  //   icon:     "🏥",
+  //   color:    "#f43f5e",
+  //   github:   "",
+  //   image:    "/assets/image.png"
+  // },
   {
-    title:    "Demo Project title",
-    desc:     "Description for demo local and real project.",
-    insight:  "You're good enough, maybe insight i've put here",
-    tools:    ["Excel", "Advanced Formulas"],
-    category: "Excel",
-    icon:     "🏥",
-    color:    "#f43f5e",
-    github:   "",
-    image:    "/assets/image.png"
-  },
-  {
-    title:    "Coders Of Banglore",
-    desc:     "Analyzed social media DataSet with Pure Python",
-    insight:  "Found maximum followers, Followings, and posts from our ",
-    tools:    ["Python", "JSON Module"],
+    title:    "Social Medial Analyzer",
+    desc:     "Parses 100+ raw Instagram profiles into clean, structured JSON using Python string processing and file I/O.Project : Coders of Banglore",
+    insight:  "Real-world data is messy — this project taught me how to transform unstructured text into analysis-ready data from scratch.",
+    tools:    ["Python"],
     category: "Python",
-    icon:     "/assets/python.png",
+    icon:     "🐍",
     color:    "#f43f5e",
     github:   "https://github.com/alhajgaming/epic-dataScience",
-    image:    "/assets/Coder Of Banglore.png"
+    image:    "/assets/Coders Of Banglore Preview.png"
+  },
+   {
+    title:    "CodeBook social media reccomendation System",
+    desc:     "Builds Facebook-style \"People You May Know\" and \"Pages You Might Like\" features using graph traversal and collaborating filtering in Python.Project : Coders of Delhi",
+    insight:  "Implementing recommendation algorithms from scratch showed me how the simplest graph logic can power the features millions of people use daily.",
+    tools:    ["Python"],
+    category: "Python",
+    icon:     "🐍",
+    color:    "#f43f5e",
+    github:   "https://github.com/alhajgaming/epic-dataScience",
+    image:    "/assets/CoderOfDelhi Project.png"
   }
 ];
 
