@@ -361,13 +361,62 @@ kbd { font-family:var(--fm); font-size:.75rem; background:var(--bg3); border:1px
 .tc-pill  { padding:7px 16px; border-radius:99px; border:1px solid var(--border); background:var(--card); font-size:.82rem; color:var(--text2); font-weight:500; transition:all .2s; cursor:default; }
 .tc-pill:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-bg); }
 
+/* Admin-only elements (shown only when isAdmin is true) */
+.admin-only { display:inline; font-size:.8rem; color:var(--accent); font-weight:600; }
+
 /* ── 14. PROJECTS — IMMERSIVE ───────────────────────────────────  */
 #projects { position:relative; overflow:hidden; }
 .project-atm { position:absolute; inset:0; pointer-events:none; z-index:1; opacity:0; transition:background .6s,opacity .5s; }
 .project-atm.lit { opacity:1; }
 
 .filter-bar { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:36px; }
-.fbtn { padding:8px 20px; border-radius:99px; font-size:.82rem; font-weight:600; border:1px solid var(--border); color:var(--text2); background:var(--card); transition:all .2s; }
+.fbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--r);
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text2);
+  font-family: var(--fb);
+  font-size: .82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .2s, color .2s, background .2s;
+  white-space: nowrap;
+}
+
+.fbtn-logo,
+.htag-logo,
+.fpill-logo,
+.tool-logo {
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.fbtn-logo {
+  width: 18px;
+  height: 18px;
+}
+
+.htag-logo {
+  width: 16px;
+  height: 16px;
+}
+
+.fpill-logo {
+  width: 18px;
+  height: 18px;
+}
+
+.tool-logo {
+  width: 32px;
+  height: 32px;
+}
 .fbtn:hover,.fbtn.active { border-color:var(--accent); color:var(--accent); background:var(--accent-bg); }
 
 .proj-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:22px; }

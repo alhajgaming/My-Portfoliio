@@ -72,6 +72,34 @@ const QUOTES = [
      github   string  — URL or "" for none
      image    string  — Path to image or "" for none
 ═══════════════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   TOOL LOGOS — Official brand SVGs via Simple Icons CDN
+   Usage: LOGOS.python | LOGOS.powerbi | LOGOS.excel
+═══════════════════════════════════════════════════════════ */
+
+const LOGOS = {
+  python: `<img
+              src="https://cdn.simpleicons.org/python/3776AB"
+              class="tool-logo"
+              alt="Python"
+              title="Python"
+           >`,
+
+  powerbi: `<img
+                src="https://img.icons8.com/color/48/power-bi.png"
+                class="tool-logo"
+                alt="Power BI"
+                title="Power BI"
+             >`,
+
+  excel: `<img
+              src="https://img.icons8.com/color/48/microsoft-excel-2019.png"
+              class="tool-logo"
+              alt="Excel"
+              title="Excel"
+           >`,
+};
+
 /**
  * Projects will be added here like this make sure to make them like this
  */
@@ -94,7 +122,7 @@ const DEFAULT_PROJECTS = [
     insight:  "Real-world data is messy — this project taught me how to transform unstructured text into analysis-ready data from scratch.",
     tools:    ["Python"],
     category: "Python",
-    icon:     "🐍",
+    icon:     LOGOS.python,
     color:    "#f43f5e",
     github:   "https://github.com/alhajgaming/epic-dataScience",
     image:    "/assets/Coders Of Banglore Preview.png"
@@ -105,7 +133,7 @@ const DEFAULT_PROJECTS = [
     insight:  "Implementing recommendation algorithms from scratch showed me how the simplest graph logic can power the features millions of people use daily.",
     tools:    ["Python"],
     category: "Python",
-    icon:     "🐍",
+    icon:     LOGOS.python,
     color:    "#18beb1",
     github:   "https://github.com/alhajgaming/epic-dataScience",
     image:    "/assets/CoderOfDelhi Project.png"
@@ -116,7 +144,7 @@ const DEFAULT_PROJECTS = [
     insight:  "Contract staff churn at 31% vs 16% Full-Time — Customer Support leads attrition at 25% with the lowest satisfaction score of 5.9/10.",
     tools:    ["Power BI"],
     category: "Power BI",
-    icon:     "📊",
+    icon:     LOGOS.powerbi,
     color:    "#b6fd0f",
     github:   "https://github.com/alhajgaming/Powerbi_Projects/tree/main/hr-analytics-powerbi",
     image:    "/assets/Hr analysis_page-0001.jpg"
@@ -456,6 +484,8 @@ function hexToRgb(hex) {
 }
 
 function renderProjects(filter) {
+  // Guard: treat undefined/null/empty as "all" (safety net if data-f attr is ever missing)
+  if (!filter) filter = "all";
   currentFilter = filter;
   const grid = document.getElementById("projGrid");
   if (!grid) return;
@@ -567,6 +597,14 @@ renderProjects("all"); // Initial render
    15. PROJECT CRUD — Add / Edit / Delete
 ═══════════════════════════════════════════════════════════ */
 
+// ── Helper: map category → logo img tag ──
+function getCategoryIcon(cat) {
+  if (cat === "Python")   return LOGOS.python;
+  if (cat === "Power BI") return LOGOS.powerbi;
+  if (cat === "Excel")    return LOGOS.excel;
+  return "📁";
+}
+
 // ── Project modal ──
 function openProjectModal(idx) {
   const isEdit = idx >= 0;
@@ -582,7 +620,7 @@ function openProjectModal(idx) {
     document.getElementById("fTools").value   = (p.tools  || []).join(", ");
     document.getElementById("fCat").value     = p.category|| "Python";
     document.getElementById("fColor").value   = p.color   || "#00e5ff";
-    document.getElementById("fIcon").value    = p.icon    || "📊";
+    document.getElementById("fIcon").value    = p.icon    || getCategoryIcon(p.category);
     document.getElementById("fGithub").value  = p.github  || "";
     document.getElementById("fImage").value   = p.image   || "";
   } else {
@@ -590,7 +628,7 @@ function openProjectModal(idx) {
       document.getElementById(id).value = "";
     });
     document.getElementById("fColor").value = "#00e5ff";
-    document.getElementById("fIcon").value  = "📊";
+    document.getElementById("fIcon").value  = getCategoryIcon(document.getElementById("fCat").value);
     document.getElementById("fCat").value   = "Python";
   }
 
@@ -617,7 +655,7 @@ document.getElementById("saveProjectBtn")?.addEventListener("click", () => {
   const toolsRaw= document.getElementById("fTools").value.trim();
   const cat     = document.getElementById("fCat").value;
   const color   = document.getElementById("fColor").value.trim() || "#00e5ff";
-  const icon    = document.getElementById("fIcon").value.trim()  || "📁";
+  const icon    = getCategoryIcon(cat);
   const github  = document.getElementById("fGithub").value.trim();
   const image   = document.getElementById("fImage").value.trim();
   const idx     = parseInt(document.getElementById("editIdx").value, 10);
