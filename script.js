@@ -112,7 +112,7 @@ const DEFAULT_PROJECTS = [
   //   tools:    ["Excel", "Advanced Formulas"],
   //   category: "Excel",
   //   icon:     "🏥",
-  //   color:    "#f43f5e",
+  //   color:    "#217346",
   //   github:   "",
   //   image:    "/assets/image.png"
   // },
@@ -123,7 +123,7 @@ const DEFAULT_PROJECTS = [
     tools:    ["Python"],
     category: "Python",
     icon:     LOGOS.python,
-    color:    "#f43f5e",
+    color:    "#3776AB",
     github:   "https://github.com/alhajgaming/epic-dataScience",
     image:    "/assets/Coders Of Banglore Preview.png"
   },
@@ -134,7 +134,7 @@ const DEFAULT_PROJECTS = [
     tools:    ["Python"],
     category: "Python",
     icon:     LOGOS.python,
-    color:    "#18beb1",
+    color:    "#3776AB",
     github:   "https://github.com/alhajgaming/epic-dataScience",
     image:    "/assets/CoderOfDelhi Project.png"
   },
@@ -145,7 +145,7 @@ const DEFAULT_PROJECTS = [
     tools:    ["Power BI"],
     category: "Power BI",
     icon:     LOGOS.powerbi,
-    color:    "#b6fd0f",
+    color:    "#F2C811",
     github:   "https://github.com/alhajgaming/Powerbi_Projects/tree/main/hr-analytics-powerbi",
     image:    "/assets/Hr analysis_page-0001.jpg"
   }
