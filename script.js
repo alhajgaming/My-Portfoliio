@@ -106,9 +106,20 @@ const DEFAULT_PROJECTS = [
     tools:    ["Python"],
     category: "Python",
     icon:     "🐍",
-    color:    "#f43f5e",
+    color:    "#18beb1",
     github:   "https://github.com/alhajgaming/epic-dataScience",
     image:    "/assets/CoderOfDelhi Project.png"
+  },
+  {
+    title:    "HR Analytics Dashboard",
+    desc:     "HR Analytics Dashboard in Power BI — Analyzed over 10,000 employees, 10 departments, 10 Indian cities, built with DAX, Python & Excel.",
+    insight:  "Contract staff churn at 31% vs 16% Full-Time — Customer Support leads attrition at 25% with the lowest satisfaction score of 5.9/10.",
+    tools:    ["Power BI"],
+    category: "Power BI",
+    icon:     "📊",
+    color:    "#b6fd0f",
+    github:   "https://github.com/alhajgaming/Powerbi_Projects/tree/main/hr-analytics-powerbi",
+    image:    "/assets/Hr analysis_page-0001.jpg"
   }
 ];
 
