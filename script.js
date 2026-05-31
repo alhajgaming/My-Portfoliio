@@ -411,3 +411,7 @@ document.getElementById("sendBtn")?.addEventListener("click", () => {
 document.getElementById("backTop")?.addEventListener("click", () => window.scrollTo({ top:0, behavior:"smooth" }));
 const bt = document.getElementById("backTop");
 if (bt) bt.setAttribute("aria-hidden","true");
+
+import { inject } from 'https://unpkg.com/@vercel/analytics/dist/index.mjs';
+
+inject();
