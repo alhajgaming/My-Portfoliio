@@ -1,6 +1,7 @@
 # Alhajkhan Pathan — Portfolio
 
 Personal data analytics portfolio built with plain HTML, CSS, and JavaScript. No frameworks, no build step.
+- live on https://alhaj.dev/
 
 ---
 
